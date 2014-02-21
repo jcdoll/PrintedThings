@@ -9,7 +9,7 @@ z_entry = 20;          // entryway offset from the bottom of the house (mm)
 r_house = 150/2;       // house radius (mm)
 h_house = 150;         // house height (mm)
 b_house = 2;           // thickness of the house bottom (mm)
-w_house = 1;           // thickness of the house walls (mm)
+w_house = 0.8;           // thickness of the house walls (mm)
 
 r_drainage = 2;        // drainage hole radius (mm)
 n_drainage = 8;        // number of drainage holes
