@@ -1,42 +1,46 @@
 $fn = 64;
 $fs = 0.5;
 
-nx = 1;
+nx = 2;
 ny = 1;
-dxy_kongs = 70; // lateral spacing between kongs
+size = "large";
 
+dxy_kongs = 70; // lateral spacing between kongs
 l = nx*dxy_kongs; // overall length (long dimension)
 w = ny*dxy_kongs; // overall width (short dimension)
 
-t_cone = 70; // height of support cone
-d_lower = 40; // bottom layer diameter
-d_upper = 68; // top layer diameter
-t_wall = 0.8; // support cone wall thickness
+// Kong grip sizing
+d_medium = 38;
+t_medium = 20;
+d_large = 50;
+t_large = 25;
+t_wall = 2;
 
-// Base/grid
-t_base = 0.8; // thickness of each layer
+// Base cylinder (should be larger than dxy_kongs for tiling)
+d_base = 75;
+t_base = 1.2;
 
 for (dx = [1:nx]) {
     for (dy = [1:ny]) {
-            translate([(dx-0.5)*dxy_kongs, (dy-0.5)*dxy_kongs, 0]) {
-                // Cone
+            translate([(dx-0.5)*dxy_kongs, (dy-0.5)*dxy_kongs, t_base]) {
+
+            // Cylinder
+            if (size == "large") {
                 difference() {
-                    cylinder(h = t_cone, d1 = d_lower, d2 = d_upper);
-                    cylinder(h = t_cone, d1 = d_lower - 2*t_wall, d2 = d_upper - 2*t_wall);
+                    cylinder(h = t_large, d = d_large + 2*t_wall);
+                    cylinder(h = t_large, d = d_large);
                 }
+            } else if (size == "medium") {
+                difference() {
+                    cylinder(h = t_medium, d = d_medium + 2*t_wall);
+                    cylinder(h = t_medium, d = d_medium);
+                }
+            } else {
+                assert(false, "Unknown kong size");
+            }
                 
-                // Base with grid support
-                translate([-dxy_kongs/2, -dxy_kongs/2, 0])
-                difference() {
-                    cube([dxy_kongs, dxy_kongs, t_base]);
-                    cylinder(h = t_base, d = dxy_kongs/2);
-                    translate([dxy_kongs, 0, 0])
-                        cylinder(h = t_base, d = dxy_kongs/2);
-                    translate([0, dxy_kongs, 0])
-                        cylinder(h = t_base, d = dxy_kongs/2);
-                    translate([dxy_kongs, dxy_kongs, 0])
-                        cylinder(h = t_base, d = dxy_kongs/2);
-                }
+            // Base (cylindrical)
+            cylinder(h = t_base, d = d_base);
         }
     }
 }
