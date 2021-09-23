@@ -10,7 +10,7 @@
 $fn = 128;
 $fs = 0.1;
 
-epsInterference = 0.25; // fudge factor for tuning interferene fit of the magnets in the cover (consider using epoxy)
+epsInterference = 0.05; // fudge factor for tuning interferene fit of the magnets in the cover (we want a snug fit or use epoxy)
 
 tCover = 4; // thickness of the printed cover
 dCover = 180; // outside diameter of the printed cover
@@ -19,7 +19,7 @@ rMagnetInset = 4; // additional inset of the magnets from edge-to-edge alignment
 dMagnet = 8;
 tMagnet = 3;
 
-debugMode = true;
+debugMode = false;
 
 if (!debugMode) {
     // Full part
