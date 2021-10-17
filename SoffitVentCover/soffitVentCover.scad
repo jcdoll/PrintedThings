@@ -10,14 +10,15 @@
 $fn = 128;
 $fs = 0.1;
 
-epsInterference = 0.05; // fudge factor for tuning interferene fit of the magnets in the cover (we want a snug fit or use epoxy)
+epsInterference = 0.1; // fudge factor for tuning interferene fit of the magnets in the cover (we want a snug fit or use epoxy)
 
-tCover = 4; // thickness of the printed cover
-dCover = 180; // outside diameter of the printed cover
-rMagnetInset = 4; // additional inset of the magnets from edge-to-edge alignment
+tCover = 2; // thickness of the printed cover
+dCover = 175; // outside diameter of the printed cover
+rMagnetInset = 2; // additional inset of the magnets from edge-to-edge alignment
 
+// Magnets are nominally 8mm dia x 1 mm thick
 dMagnet = 8;
-tMagnet = 3;
+tMagnet = 1;
 
 debugMode = false;
 
@@ -26,8 +27,11 @@ if (!debugMode) {
     difference() {
         cylinder(h = tCover, d = dCover);
         for (theta = [0:90:270]) {
-            translate([(dCover/2-rMagnetInset-dMagnet/2)*sin(theta),(dCover/2-rMagnetInset-dMagnet/2)*cos(theta), tCover - tMagnet])
-                cylinder(h = 3*tMagnet, d = dMagnet);
+            translate(
+            [(dCover/2-rMagnetInset-dMagnet/2)*sin(theta),
+            (dCover/2-rMagnetInset-dMagnet/2)*cos(theta),
+            tCover - tMagnet])
+                cylinder(h = 3*tMagnet, d = dMagnet + 2*epsInterference);
         }
     }
 } else {
